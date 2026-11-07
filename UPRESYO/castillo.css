@@ -262,12 +262,13 @@
 }
 
 .chip:hover {
-  background: #0b7a58;
-}
+    background: var(--maroon-hover);
+  }
 
 .chip[aria-pressed="true"]:hover {
-  background: #fbe3a2;
-}
+    background: var(--maroon-hover);
+    color: var(--white);
+  }
 
 .sort {
   display: inline-flex;
@@ -287,8 +288,8 @@
 }
 
 .sort:hover {
-  background: #0b7a58;
-}
+    background: var(--maroon-hover);
+  }
 
 .chip:focus-visible,
 .sort:focus-visible {
@@ -439,8 +440,9 @@
 }
 
 .sort-menu button:hover {
-  background: #f1efe4;
-}
+    background: var(--maroon-hover);
+    color: var(--white);
+  }
 
 .sort-menu button.is-active {
   font-weight: 700;
@@ -576,9 +578,15 @@
   transition: box-shadow 0.25s ease, scale 0.25s ease, background-color 0.25s ease;
 }
 
-.search:hover {
-  background: #f6c75a;
-}
+  .search:hover {
+    background: var(--maroon-hover);
+    color: var(--white);
+  }
+
+  .search:hover input,
+  .search:hover input::placeholder {
+    color: rgba(255, 255, 255, 0.9);
+  }
 
 .search:focus-within {
   scale: 1.015;
@@ -658,7 +666,7 @@
 
 .item:hover {
   translate: 0 -4px;
-  background: #f5c553;
+  background: var(--maroon-hover);
   box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
 }
 
@@ -699,7 +707,7 @@
 
 .item:hover .info h2 {
   background-size: 100% 2px;
-  color: var(--green-dark);
+  color: var(--white);
 }
 
 .price {
@@ -708,7 +716,10 @@
 
 .item:hover .price {
   scale: 1.18;
-  color: var(--green-dark);
+  color: var(--white);
+.item:hover .category {
+    color: var(--white);
+  }
 }
 
 /* ---------- Respect people who turn animations off ---------- */
