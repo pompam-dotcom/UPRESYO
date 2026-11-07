@@ -16,7 +16,7 @@
 }
 
 .nav-links .btn-about:hover {
-  background: #9a1414;
+  background: var(--maroon-hover-deep);
 }
 
 /* ---------- Layout ---------- */
