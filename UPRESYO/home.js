@@ -6,12 +6,12 @@
   if (!stage || blobs.length === 0) return;
 
   const SECONDS_PER_LAP = 40; // lower = faster
-  // Starting angle (degrees) for each blob, in the same order as the HTML:
-  // top, right, left, bottom-left, bottom-right
-  const startAngles = [-90, -18, 198, 126, 54];
+  // Spread the blobs evenly around the ring, starting from the top.
+  // Works for any number of blobs (360 / count degrees apart).
+  const startAngles = blobs.map((_, i) => -90 + (360 / blobs.length) * i);
 
   // The gold ring, as fractions of the stage size
-  const ring = { cx: 0.5, cy: 0.525, rx: 0.41, ry: 0.395 };
+  const ring = { cx: 0.5, cy: 0.5, rx: 0.41, ry: 0.35 };
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let offset = 0;

@@ -24,7 +24,7 @@ body {
 
 body {
   font-family: var(--font-body);
-  background: var(--cream);
+  background: var(--cream)
 }
 
 /* ---------- Frame ---------- */
@@ -35,9 +35,9 @@ body {
   height: 100vh;   /* fallback */
   height: 100dvh;  /* fills the whole browser window */
   min-height: 520px;
-  background:
-    radial-gradient(ellipse at 50% 55%, #fbf9f2 0%, var(--cream) 55%, #ebe3cf 100%);
-  overflow: hidden;
+     background:
+     url("homepagebg.png") center / cover no-repeat,
+     var(--cream);
 }
 
 /* ---------- Navbar ---------- */
@@ -331,3 +331,163 @@ body {
     animation: none;
   }
 }
+
+/* ---------- About blob ---------- */
+.blob-top-left {
+  left: 21%;
+  top: 11%;
+  width: calc(15 * var(--u));
+  height: calc(11.4 * var(--u));
+}
+
+.about-blob {
+  isolation: isolate;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+/* The yellow morphing shape lives on a pseudo-element, because your
+   earlier ".blob { ... !important }" rules would block an animated
+   border-radius on the link itself. */
+.about-blob::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--gold);
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+  box-shadow: 0 6px 18px rgba(242, 192, 74, 0.45);
+  animation: blob-morph 6s ease-in-out infinite;
+  transition: background-color 0.2s ease;
+}
+
+.about-blob:hover::before {
+  background: #ffd873;
+}
+
+@keyframes blob-morph {
+  0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+  50%      { border-radius: 40% 60% 45% 55% / 60% 40% 60% 40%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-blob::before { animation: none; }
+}
+
+.about-blob::before {
+  display: none;
+}
+
+/* ---------- Readability fixes ---------- */
+
+/* 1. Make the center circle solid so the road doesn't show through the text */
+.orbit-inner {
+  background: rgba(251, 249, 242, 0.93);
+  border-color: var(--green);
+  border-width: 2px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* 2. Give every label a pill background so it reads on any background */
+.blob span {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  padding: 2px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* 3. Make the orbit path easier to see */
+.orbit-outer {
+  border-width: 3px;
+  border-color: var(--gold);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.6),
+    0 0 26px rgba(242, 192, 74, 0.6);
+}
+
+/* 4. Keep the pixel art crisp when it's scaled */
+.blob-img,
+.hero-logo {
+  image-rendering: pixelated;
+}
+
+/* 5. Slightly larger logo */
+.hero-logo {
+  width: max(80px, calc(16 * var(--u)));
+}
+
+/* ---------- Bigger designs & logo ---------- */
+
+/* Tweak these two numbers to resize everything at once */
+.stage {
+  --icon-size: 13;   /* orbiting icons (was ~7 at this window size) */
+  --logo-size: 20;   /* center logo */
+}
+
+/* Orbiting icons: scale with the window instead of fixed 100px */
+.blob-img {
+  width: clamp(64px, calc(var(--icon-size) * var(--u)), 260px);
+  height: clamp(64px, calc(var(--icon-size) * var(--u)), 260px);
+  object-fit: contain;   /* no cropping when bigger */
+  border-radius: 0;
+}
+
+/* Let each blob size itself around its image + label.
+   (home.js uses the blob's real size to center it on the ring,
+   so auto-sizing keeps it centered.) */
+.stage > .blob {
+  width: auto;
+  height: auto;
+}
+
+/* Slightly bigger labels to match */
+.blob span {
+  font-size: clamp(0.75rem, calc(2.2 * var(--u)), 1.7rem);
+}
+
+/* Center logo */
+.hero-logo {
+  width: clamp(90px, calc(var(--logo-size) * var(--u)), 340px);
+}
+
+/* ---------- Highlight the center logo ---------- */
+
+/* Bigger logo, with a soft glow so it stands out */
+.stage {
+  --logo-size: 32;   /* was 20. Raise it for an even bigger logo */
+}
+
+.hero-logo {
+  width: clamp(120px, calc(var(--logo-size) * var(--u)), 520px);
+  filter: drop-shadow(0 6px 18px rgba(242, 192, 74, 0.55));
+}
+
+/* Wider text area so the headline can fit on one line */
+.hero {
+  width: calc(54 * var(--u));
+  gap: calc(1.2 * var(--u));
+}
+
+/* Smaller headline */
+.hero h1 {
+  font-size: clamp(0.9rem, calc(2.3 * var(--u)), 2.4rem);
+  line-height: 1.15;
+}
+
+/* Smaller tagline */
+.hero p {
+  font-size: clamp(0.65rem, calc(1.3 * var(--u)), 1.15rem);
+  max-width: 100%;
+}
+
+.orbit-outer {
+  top: 15%;
+  height: 70%;
+}
+
+  @keyframes logo-pulse {
+    0%, 100% { scale: 1; }
+    50% { scale: 1.05; }
+  }
